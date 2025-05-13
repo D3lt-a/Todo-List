@@ -13,7 +13,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::orderBy('created_at', 'desc')->get();
+        return view('index', compact('tasks'));
     }
 
     /**
@@ -29,7 +30,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['title' => 'required']);
+        Task::create($request->all());
+        return redirect('/');
     }
 
     /**
@@ -51,9 +54,11 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Task $task)
     {
-        //
+        $task->completed = !$task -> completed;
+        $task->save();
+        return redirect('/');
     }
 
     /**
@@ -61,6 +66,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect('/');
     }
 }
