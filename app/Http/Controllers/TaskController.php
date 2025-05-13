@@ -74,9 +74,13 @@ class TaskController extends Controller
         return redirect('/');
     }
 
-    public function completed() {
-    $tasks = auth()->user()->tasks()->where('completed', true)->get();
-    return view('tasks.index', compact('tasks'));
+public function complete(Task $task)
+{
+    $task->update([
+        'completed' => true,
+    ]);
+
+    return redirect()->route('home')->with('success', 'Task marked as completed!');
 }
 
     public function pending() {
