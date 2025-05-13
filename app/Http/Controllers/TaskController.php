@@ -13,7 +13,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('created_at', 'desc')->get();
+        $tasks = auth()->user()->tasks()->orderBy('created_at', 'desc')->get();
         return view('index', compact('tasks'));
     }
 
@@ -28,12 +28,16 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate(['title' => 'required']);
-        Task::create($request->all());
-        return redirect('/');
-    }
+    public function store(Request $request) {
+    $request->validate(['title' => 'required']);
+
+    auth()->user()->tasks()->create([
+        'title' => $request->title,
+        'completed' => false
+    ]);
+
+    return redirect('/');
+}
 
     /**
      * Display the specified resource.
