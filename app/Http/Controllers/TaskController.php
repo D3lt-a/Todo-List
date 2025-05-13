@@ -73,4 +73,15 @@ class TaskController extends Controller
         $task->delete();
         return redirect('/');
     }
+
+    public function completed() {
+    $tasks = auth()->user()->tasks()->where('completed', true)->get();
+    return view('tasks.index', compact('tasks'));
+}
+
+    public function pending() {
+    $tasks = auth()->user()->tasks()->where('completed', false)->get();
+    return view('tasks.index', compact('tasks'));
+}
+
 }

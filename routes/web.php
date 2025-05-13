@@ -17,4 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/completed', [TaskController::class, 'completed']);
+Route::get('/pending', [TaskController::class, 'pending']);
+
+
 require __DIR__.'/auth.php';

@@ -25,6 +25,33 @@
             color: #333;
         }
 
+        .filters {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filters a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #3490dc;
+    background-color: #e0f2fe;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.filters a:hover {
+    background-color: #bae6fd;
+}
+
+.filters a.active {
+    background-color: #0ea5e9;
+    color: white;
+    font-weight: bold;
+}
+
+
         form {
             display: flex;
             gap: 10px;
@@ -93,6 +120,13 @@
 
     <div class="container">
         <h1>📝 My Todo List</h1>
+
+        <div class="filters">
+    <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">All</a>
+    <a href="/completed" class="{{ request()->is('completed') ? 'active' : '' }}">Completed</a>
+    <a href="/pending" class="{{ request()->is('pending') ? 'active' : '' }}">Pending</a>
+</div>
+
 
         <!-- Task Form -->
         <form action="/tasks" method="POST">
