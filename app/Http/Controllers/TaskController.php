@@ -60,7 +60,7 @@ class TaskController extends Controller
      */
     public function update(Task $task)
     {
-        $task->completed = !$task -> completed;
+        $task->completed=!$task->completed;
         $task->save();
         return redirect('/');
     }
@@ -74,18 +74,18 @@ class TaskController extends Controller
         return redirect('/');
     }
 
-public function complete(Task $task)
-{
-    $task->update([
-        'completed' => true,
+    public function complete(Task $task)
+    {
+        $task->update([
+            'completed' => true,
     ]);
 
-    return redirect()->route('home')->with('success', 'Task marked as completed!');
-}
+        return redirect()->route('home')->with('success', 'Task marked as completed!');
+    }
 
     public function pending() {
     $tasks = auth()->user()->tasks()->where('completed', false)->get();
-    return view('tasks.index', compact('tasks'));
+    return view('/', compact('tasks'));
 }
 
 }
